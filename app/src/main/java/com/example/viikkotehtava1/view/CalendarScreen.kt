@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viikkotehtava1.viewmodel.TaskViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreen(
     modifier: Modifier = Modifier,
@@ -36,11 +37,7 @@ fun CalendarScreen(
     val tasks by viewModel.tasks.collectAsState()
     val selectedTask by viewModel.selectedTask.collectAsState()
 
-    /*
-    yläpalkki, jossa ikonit joilla liikutaan sivujen välillä
 
-    tulostetaan tehtävät listana
-     */
 
     viewModel.sortByDueDate()
 
@@ -48,10 +45,10 @@ fun CalendarScreen(
         title = { Text("Calendar") },
         navigationIcon = {
             IconButton(onClick = onNavigateHome) {
-                Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Go to home")
+                Icon(Icons.Default.Home, contentDescription = "Go to home")
             }
             IconButton(onClick = onNavigateSettings) {
-                Icon(Icons.AutoMirrored.Filled.Settings, contentDescription = "Go to settings")
+                Icon(Icons.Default.Settings, contentDescription = "Go to settings")
             }
         }
     )

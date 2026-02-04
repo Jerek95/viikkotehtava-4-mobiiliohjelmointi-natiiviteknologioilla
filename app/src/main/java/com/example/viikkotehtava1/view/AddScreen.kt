@@ -14,9 +14,9 @@ import com.example.viikkotehtava1.model.Task
 
 @Composable
 fun AddScreen(task: Task?, onClose: () -> Unit, onAdd: () -> Unit){
-    var title by remember { mutableStateOf('') }
-    var description by remember { mutableStateOf('') }
-    var dueDate by remember { mutableStateOf('') }
+    var title by remember { mutableStateOf(task!!.title) }
+    var description by remember { mutableStateOf(task!!.description) }
+    var dueDate by remember { mutableStateOf(task!!.dueDate) }
 
     AlertDialog(
         onDismissRequest = onClose,

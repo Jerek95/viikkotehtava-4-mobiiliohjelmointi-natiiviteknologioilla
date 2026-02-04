@@ -9,10 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -33,6 +34,7 @@ import androidx.compose.runtime.collectAsState
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -49,12 +51,13 @@ fun HomeScreen(
         title = { Text("Calendar") },
         navigationIcon = {
             IconButton(onClick = onNavigateCalendar) {
-                Icon(Icons.AutoMirrored.Filled.calendar_month, contentDescription = "Go to calendar")
+                Icon(Icons.Default.CalendarMonth, contentDescription = "Go to calendar")
             }
             IconButton(onClick = onNavigateSettings) {
-                Icon(Icons.AutoMirrored.Filled.Settings, contentDescription = "Go to settings")
+                Icon(Icons.Default.Settings, contentDescription = "Go to settings")
             }
         }
+
     )
 
     LazyColumn(

@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,7 +13,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.viikkotehtava1.view.HomeScreen
 import com.example.viikkotehtava1.view.CalendarScreen
 import com.example.viikkotehtava1.view.SettingsScreen
-import com.example.viikkotehtava1.ui.theme.Viikkotehtava1Theme
 import com.example.viikkotehtava1.navigation.*
 import com.example.viikkotehtava1.viewmodel.TaskViewModel
 
@@ -26,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val viewModel: TaskViewModel = viewModel()
-
+                Scaffold() {
                     NavHost(
                         navController = navController,
                         startDestination = ROUTE_HOME
@@ -35,27 +32,29 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(
                                 modifier = Modifier,
                                 viewModel = viewModel,
-                                onNavigateCalendar = navController.navigate(ROUTE_CALENDAR),
-                                onNavigateSettings = navController.navigate(ROUTE_SETTINGS)
+                                onNavigateCalendar = { navController.navigate(ROUTE_CALENDAR) },
+                                onNavigateSettings = { navController.navigate(ROUTE_SETTINGS) }
                             )
                         }
                         composable(ROUTE_CALENDAR) {
                             CalendarScreen(
                                 modifier = Modifier,
                                 viewModel = viewModel,
-                                onNavigateHome = navController.navigate(ROUTE_HOME),
-                                onNavigateSettings = navController.navigate(ROUTE_SETTINGS)
+                                onNavigateHome = { navController.navigate(ROUTE_HOME) },
+                                onNavigateSettings = { navController.navigate(ROUTE_SETTINGS) }
                             )
                         }
                         composable(ROUTE_SETTINGS) {
                             SettingsScreen(
                                 modifier = Modifier,
                                 viewModel = viewModel,
-                                onNavigateCalendar = navController.navigate(ROUTE_CALENDAR),
-                                onNavigateHome = navController.navigate(ROUTE_HOME)
+                                onNavigateCalendar = { navController.navigate(ROUTE_CALENDAR) },
+                                onNavigateHome = { navController.navigate(ROUTE_HOME) }
                             )
                         }
                     }
+                }
+
             }
         }
     }
