@@ -8,10 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,12 +31,31 @@ import com.example.viikkotehtava1.model.Task
 import com.example.viikkotehtava1.viewmodel.TaskViewModel
 import androidx.compose.runtime.collectAsState
 
+
+
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: TaskViewModel = viewModel()){
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: TaskViewModel = viewModel(),
+    onNavigateCalendar: () -> Unit,
+    onNavigateSettings: () -> Unit
+){
     val tasks by viewModel.tasks.collectAsState()
     val selectedTask by viewModel.selectedTask.collectAsState()
     var text by remember { mutableStateOf("") }
 
+
+    TopAppBar(
+        title = { Text("Calendar") },
+        navigationIcon = {
+            IconButton(onClick = onNavigateCalendar) {
+                Icon(Icons.AutoMirrored.Filled.calendar_month, contentDescription = "Go to calendar")
+            }
+            IconButton(onClick = onNavigateSettings) {
+                Icon(Icons.AutoMirrored.Filled.Settings, contentDescription = "Go to settings")
+            }
+        }
+    )
 
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(16.dp),
