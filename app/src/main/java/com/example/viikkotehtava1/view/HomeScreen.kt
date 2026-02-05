@@ -45,19 +45,19 @@ fun HomeScreen(
     val tasks by viewModel.tasks.collectAsState()
     val selectedTask by viewModel.selectedTask.collectAsState()
     var text by remember { mutableStateOf("") }
+    val showAddScreen by viewModel.showAddScreen.collectAsState()
 
 
     TopAppBar(
-        title = { Text("Calendar") },
-        navigationIcon = {
+        title = { Text("Home") },
+        actions = {
             IconButton(onClick = onNavigateCalendar) {
-                Icon(Icons.Default.CalendarMonth, contentDescription = "Go to calendar")
+                Icon(imageVector = Icons.Default.CalendarMonth, contentDescription = "Go to calendar")
             }
             IconButton(onClick = onNavigateSettings) {
-                Icon(Icons.Default.Settings, contentDescription = "Go to settings")
+                Icon(imageVector = Icons.Default.Settings, contentDescription = "Go to settings")
             }
         }
-
     )
 
     LazyColumn(
@@ -88,17 +88,13 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center
             ) {
 
-                TextField(
-                    value = text,
-                    onValueChange = { text = it },
-                    label = { Text("Enter name") }
-                )
                 Button(
-                    onClick = {viewModel.addTask(
-                        Task(viewModel.tasks.value.size + 1, text, text, 1, "", false)
-                    )}
+                    onClick = {
+                        viewModel.showAddScreen.value = true
+                    }
                 )
-                { Text("Add Task")}
+                    { Text("Add Task")}
+
                 Button(onClick = { viewModel.filterByDone(false) }) {
                     Text("Filter By Done")
                 }
@@ -116,4 +112,7 @@ fun HomeScreen(
         DetailScreen(task = s, onClose = { viewModel.closeDialog() } , onUpdate = { viewModel.updateTask(it)})
     }
 
+    if(showAddScreen){
+        AddScreen(task = Task(id = tasks.size + 1, title = "", description = "", priority = 1, dueDate = "", done = false), onClose = { viewModel.showAddScreen.value = false }, onAdd = {viewModel.addTask(it)})
+    }
 }

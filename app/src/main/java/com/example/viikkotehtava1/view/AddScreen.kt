@@ -13,7 +13,7 @@ import androidx.compose.runtime.setValue
 import com.example.viikkotehtava1.model.Task
 
 @Composable
-fun AddScreen(task: Task?, onClose: () -> Unit, onAdd: () -> Unit){
+fun AddScreen(task: Task?, onClose: () -> Unit, onAdd: (Task) -> Unit){
     var title by remember { mutableStateOf(task!!.title) }
     var description by remember { mutableStateOf(task!!.description) }
     var dueDate by remember { mutableStateOf(task!!.dueDate) }
@@ -30,7 +30,8 @@ fun AddScreen(task: Task?, onClose: () -> Unit, onAdd: () -> Unit){
         },
         confirmButton = {
             Button(
-                onClick = { onAdd()}
+                onClick = { onAdd(task!!.copy(title = title, description = description, dueDate = dueDate)); onClose() }
+
             ) {
                 Text("Save")
             } },

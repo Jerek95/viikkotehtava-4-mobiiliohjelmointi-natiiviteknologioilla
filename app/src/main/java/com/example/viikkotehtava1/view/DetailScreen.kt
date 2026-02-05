@@ -20,7 +20,7 @@ fun DetailScreen(task: Task?, onClose: () -> Unit, onUpdate: (Task?) -> Unit){
 
     AlertDialog(
         onDismissRequest = onClose,
-        title = { Text("Edit Task") },
+        title = { Text("Create/Edit Task") },
         text = {
             Column{
                 TextField(value = title, onValueChange = { title = it  }, label = { Text("Title") })

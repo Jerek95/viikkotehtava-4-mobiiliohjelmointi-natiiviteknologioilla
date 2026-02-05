@@ -13,6 +13,8 @@ class TaskViewModel : ViewModel() {
     private val _selectedTask = MutableStateFlow<Task?>(null)
     val selectedTask: StateFlow<Task?> = _selectedTask
 
+    val showAddScreen = MutableStateFlow<Boolean>(false)
+
 
     init {
         _tasks.value = listOf<Task>(

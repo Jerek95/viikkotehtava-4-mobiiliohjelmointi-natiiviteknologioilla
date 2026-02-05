@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viikkotehtava1.model.Task
 import com.example.viikkotehtava1.viewmodel.TaskViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,12 +44,12 @@ fun CalendarScreen(
 
     TopAppBar(
         title = { Text("Calendar") },
-        navigationIcon = {
+        actions = {
             IconButton(onClick = onNavigateHome) {
-                Icon(Icons.Default.Home, contentDescription = "Go to home")
+                Icon(imageVector = Icons.Default.Home, contentDescription = "Go to home")
             }
             IconButton(onClick = onNavigateSettings) {
-                Icon(Icons.Default.Settings, contentDescription = "Go to settings")
+                Icon(imageVector = Icons.Default.Settings, contentDescription = "Go to settings")
             }
         }
     )
@@ -77,5 +78,9 @@ fun CalendarScreen(
 
             }
         }
+    }
+    if(selectedTask != null){
+        val s: Task? = selectedTask
+        DetailScreen(task = s, onClose = { viewModel.closeDialog() } , onUpdate = { viewModel.updateTask(it)})
     }
 }
